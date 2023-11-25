@@ -12,66 +12,67 @@
 
 #include "get_next_line.h"
 
-static char	*ft_get_buffer(int fd, char *str)
+static char	*ft_get_buffer(int fd,char *dst)
 {
-	int		byte;
 	char	*buffer;
+	int		byte;
 
-	if (!str)
-		str = ft_strdup("");
+	if(!dst)
+		dst = ft_strdup("");
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1);
 	if (!buffer)
-		return (NULL);
+		return (free(dst), NULL);
 	byte = 1;
-	while (byte > 0 && ft_strchr(str, '\n'))
+	while (byte > 0 && ft_strchr(dst, '\n'))
 	{
 		byte = read(fd, buffer, BUFFER_SIZE);
-		if (byte < 0 && str)
-			return (free(buffer), free(str), NULL);
+		if (byte <= 0 && buffer && dst)
+			return (free(buffer), free(dst), NULL);
 		buffer[byte] = '\0';
-		str = ft_strjoin(str, buffer);
+		dst = ft_strjoin(dst, buffer);
 	}
 	free(buffer);
-	return (str);
+	return (dst);
 }
 
 static char	*ft_get_rest(char *str)
 {
 	char	*dst;
+	int		len;
 	int		i;
 	int		j;
-	int		len;
 
 	if (!str)
 		return (NULL);
-	i = 0;
 	len = 0;
-	while (str[len] && str[len] != '\n')
-		len++;
-	i = ft_strlen(str);
-	j = i - len;
-	dst = (char *)ft_calloc(j + 1);
-	if (!dst)
-		return (NULL);
 	i = 0;
-	while (i < j)
-		dst[i++] = str[++len];
-	dst[i] = '\0';
+	while (str && str[len] != '\n')
+		len++;
+	i = ft_strlen(str) - len;
+	dst = (char *)ft_calloc(i + 1);
+	if (!dst)
+		return (free(str), NULL);
+	j = 0;
+	while (j < i)
+		dst[j++] = str[++len];
+	dst[j] = '\0';
 	return (dst);
 }
 
-static char	*ft_cutstr(char *str, int c)
+static char *ft_cutstr(char *str, char c)
 {
 	char	*dst;
 	int		len;
 	int		i;
 
+	if (!str)
+		return (NULL);
 	len = 0;
 	while (str[len] && str[len] != (char )c)
 		len++;
 	dst = (char *)ft_calloc(len + 1);
 	if (!dst)
-		return (NULL);
+		return (free(str), NULL);
 	i = 0;
 	while (i < len)
 	{
@@ -79,6 +80,7 @@ static char	*ft_cutstr(char *str, int c)
 		i++;
 	}
 	dst[i] = '\0';
+	free(str);
 	return (dst);
 }
 
@@ -93,20 +95,19 @@ char	*get_next_line(int fd)
 	line = ft_get_buffer(fd, str);
 	str = ft_get_rest(line);
 	dst = ft_cutstr(line, '\n');
-	free(line);
 	return (dst);
 }
 
-int main()
-{
-	int fd = open("test.txt", O_RDWR | O_CREAT);
-	//
-	printf("\n[%s]\n", get_next_line(fd));
-	printf("\n[%s]\n", get_next_line(fd));
-	printf("\n[%s]\n", get_next_line(fd));
-	printf("\n[%s]\n", get_next_line(fd));
-	printf("\n[%s]\n", get_next_line(fd));
-	printf("\n[%s]\n", get_next_line(fd));
-	printf("\n[%s]\n", get_next_line(fd));
-	close(fd);
-}
+// int main()
+// {
+// 	int fd = open("test.txt", O_RDWR | O_CREAT);
+// 	//
+// 	printf("\n[%s]\n", get_next_line(fd));
+// 	printf("\n[%s]\n", get_next_line(fd));
+// 	printf("\n[%s]\n", get_next_line(fd));
+// 	printf("\n[%s]\n", get_next_line(fd));
+// 	printf("\n[%s]\n", get_next_line(fd));
+// 	printf("\n[%s]\n", get_next_line(fd));
+// 	printf("\n[%s]\n", get_next_line(fd));
+// 	close(fd);
+// }
