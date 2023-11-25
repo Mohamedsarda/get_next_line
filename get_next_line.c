@@ -26,7 +26,7 @@ static char	*ft_get_buffer(int fd, char *dst)
 	while (byte > 0 && ft_strchr(dst, '\n'))
 	{
 		byte = read(fd, buffer, BUFFER_SIZE);
-		if (byte < 0 || (byte == 0 && dst[0] == 0))
+		if (byte < 0 || (dst[0] == 0 && byte <= 0))
 			return (free(buffer), free(dst), NULL);
 		buffer[byte] = '\0';
 		dst = ft_strjoin(dst, buffer);
@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 
 // int main()
 // {
-// 	int fd = open("test.txt", O_RDWR | O_CREAT);
+// 	int fd = open("1char.txt", O_RDWR | O_CREAT);
 // 	//
 // 	printf("\n[%s]\n", get_next_line(fd));
 // 	printf("\n[%s]\n", get_next_line(fd));
@@ -111,5 +111,6 @@ char	*get_next_line(int fd)
 // 	printf("\n[%s]\n", get_next_line(fd));
 // 	printf("\n[%s]\n", get_next_line(fd));
 // 	printf("\n[%s]\n", get_next_line(fd));
+// 	// while(1);
 // 	close(fd);
 // }
