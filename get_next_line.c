@@ -12,12 +12,12 @@
 
 #include "get_next_line.h"
 
-static char	*ft_get_buffer(int fd,char *dst)
+static char	*ft_get_buffer(int fd, char *dst)
 {
 	char	*buffer;
 	int		byte;
 
-	if(!dst)
+	if (!dst)
 		dst = ft_strdup("");
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1);
 	if (!buffer)
@@ -59,7 +59,7 @@ static char	*ft_get_rest(char *str)
 	return (dst);
 }
 
-static char *ft_cutstr(char *str, char c)
+static char	*ft_cutstr(char *str, char c)
 {
 	char	*dst;
 	int		len;
@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 
 // int main()
 // {
-// 	int fd = open("1char.txt", O_RDWR | O_CREAT);
+// 	int fd = open("test.txt", O_RDWR | O_CREAT);
 // 	//
 // 	printf("\n[%s]\n", get_next_line(fd));
 // 	printf("\n[%s]\n", get_next_line(fd));
