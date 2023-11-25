@@ -48,7 +48,9 @@ static char	*ft_get_rest(char *str)
 	i = 0;
 	while (str && str[len] != '\n')
 		len++;
+	// printf("------%c------", str[len]);
 	i = ft_strlen(str) - len;
+	// printf("str : %s\n len : %d\n i : %d", str, len, ft_strlen(str));
 	dst = (char *)ft_calloc(i + 1);
 	if (!dst)
 		return (free(str), NULL);
@@ -69,6 +71,8 @@ static char *ft_cutstr(char *str, char c)
 		return (NULL);
 	len = 0;
 	while (str[len] && str[len] != (char )c)
+		len++;
+	if (str[len] == '\n')
 		len++;
 	dst = (char *)ft_calloc(len + 1);
 	if (!dst)
