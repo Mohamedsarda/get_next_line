@@ -26,7 +26,7 @@ static char	*ft_get_buffer(int fd,char *dst)
 	while (byte > 0 && ft_strchr(dst, '\n'))
 	{
 		byte = read(fd, buffer, BUFFER_SIZE);
-		if (byte <= 0 && buffer && dst)
+		if (byte < 0 || (byte == 0 && dst[0] == 0))
 			return (free(buffer), free(dst), NULL);
 		buffer[byte] = '\0';
 		dst = ft_strjoin(dst, buffer);
@@ -46,11 +46,9 @@ static char	*ft_get_rest(char *str)
 		return (NULL);
 	len = 0;
 	i = 0;
-	while (str && str[len] != '\n')
+	while (str[len] && str[len] != '\n')
 		len++;
-	// printf("------%c------", str[len]);
 	i = ft_strlen(str) - len;
-	// printf("str : %s\n len : %d\n i : %d", str, len, ft_strlen(str));
 	dst = (char *)ft_calloc(i + 1);
 	if (!dst)
 		return (free(str), NULL);
@@ -104,7 +102,7 @@ char	*get_next_line(int fd)
 
 // int main()
 // {
-// 	int fd = open("test.txt", O_RDWR | O_CREAT);
+// 	int fd = open("1char.txt", O_RDWR | O_CREAT);
 // 	//
 // 	printf("\n[%s]\n", get_next_line(fd));
 // 	printf("\n[%s]\n", get_next_line(fd));
