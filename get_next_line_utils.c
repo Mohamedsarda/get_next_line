@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msarda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/25 13:56:44 by msarda            #+#    #+#             */
+/*   Updated: 2023/11/25 13:56:45 by msarda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 int	ft_strlen(const char *str)
@@ -10,24 +22,23 @@ int	ft_strlen(const char *str)
 	return (len);
 }
 
-
-char    *ft_calloc(int count)
+char	*ft_calloc(int count)
 {
-		char	*str;
-		int		i;
+	char	*str;
+	int		i;
 
-		if (count < 1)
-			return (NULL);
-		str = (char *)malloc(count * sizeof(char));
-		if (!str)
-			return (NULL);
-		i = 0;
-		while (i < count)
-			str[i++] = 0;
-		return (str);
+	if (count < 1)
+		return (NULL);
+	str = (char *)malloc(count * sizeof(char));
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < count)
+		str[i++] = 0;
+	return (str);
 }
 
-char	*ft_strjoin(char const  *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		i;
 	int		j;
@@ -69,4 +80,17 @@ char	*ft_strdup(char const *s1)
 		i--;
 	}
 	return (dst);
+}
+
+int	ft_strchr(const char *s, int c)
+{
+	if (!s || !c)
+		return (0);
+	while (*s)
+	{
+		if (*s == (char )c)
+			return (0);
+		s++;
+	}
+	return (1);
 }

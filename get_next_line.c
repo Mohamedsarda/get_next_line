@@ -1,19 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msarda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/25 13:56:26 by msarda            #+#    #+#             */
+/*   Updated: 2023/11/25 13:56:29 by msarda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-int	ft_strchr(const char *s, int c)
-{
-	if (!s || !c)
-		return (0);
-	while (*s)
-	{
-		if (*s == (char )c)
-			return (0);
-		s++;
-	}
-	return (1);
-}
-
-char	*ft_get_buffer(int fd, char *str)
+static char	*ft_get_buffer(int fd, char *str)
 {
 	int		byte;
 	char	*buffer;
@@ -36,7 +35,7 @@ char	*ft_get_buffer(int fd, char *str)
 	return (str);
 }
 
-char	*ft_get_rest(char *str)
+static char	*ft_get_rest(char *str)
 {
 	char	*dst;
 	int		i;
@@ -51,7 +50,7 @@ char	*ft_get_rest(char *str)
 		len++;
 	i = ft_strlen(str);
 	j = i - len;
-	dst = (char *)ft_calloc(j + 1 );
+	dst = (char *)ft_calloc(j + 1);
 	if (!dst)
 		return (NULL);
 	i = 0;
@@ -61,7 +60,7 @@ char	*ft_get_rest(char *str)
 	return (dst);
 }
 
-char	*ft_cutstr(char *str, int c)
+static char	*ft_cutstr(char *str, int c)
 {
 	char	*dst;
 	int		len;
@@ -89,7 +88,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*dst;
 
-	if ((fd < 0 || fd > 10240) || (BUFFER_SIZE < 1 && BUFFER_SIZE > 10000000))
+	if ((fd < 1 || fd > 10240) && (BUFFER_SIZE < 1 || BUFFER_SIZE > 10000000))
 		return (NULL);
 	line = ft_get_buffer(fd, str);
 	str = ft_get_rest(line);
