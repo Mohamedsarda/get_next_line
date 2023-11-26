@@ -15,20 +15,20 @@
 static char	*ft_get_buffer(int fd, char *dst)
 {
 	char	*buffer;
-	int		byte;
+	int		bytes;
 
+	bytes = 1;
 	if (!dst)
 		dst = ft_strdup("");
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (free(dst), NULL);
-	byte = 1;
-	while (byte > 0 && ft_strchr(dst, '\n'))
+	while (bytes > 0 && ft_strchr(dst, '\n'))
 	{
-		byte = read(fd, buffer, BUFFER_SIZE);
-		if (byte < 0 || (dst[0] == 0 && byte <= 0))
+		bytes = read(fd , buffer, BUFFER_SIZE);
+		if (bytes < 0 || (!dst[0] && bytes == 0))
 			return (free(buffer), free(dst), NULL);
-		buffer[byte] = '\0';
+		buffer[bytes] = '\0';
 		dst = ft_strjoin(dst, buffer);
 	}
 	free(buffer);
@@ -106,11 +106,11 @@ char	*get_next_line(int fd)
 // 	//
 // 	printf("\n[%s]\n", get_next_line(fd));
 // 	printf("\n[%s]\n", get_next_line(fd));
-// 	printf("\n[%s]\n", get_next_line(fd));
-// 	printf("\n[%s]\n", get_next_line(fd));
-// 	printf("\n[%s]\n", get_next_line(fd));
-// 	printf("\n[%s]\n", get_next_line(fd));
-// 	printf("\n[%s]\n", get_next_line(fd));
+// 	// printf("\n[%s]\n", get_next_line(fd));
+// 	// printf("\n[%s]\n", get_next_line(fd));
+// 	// printf("\n[%s]\n", get_next_line(fd));
+// 	// printf("\n[%s]\n", get_next_line(fd));
+// 	// printf("\n[%s]\n", get_next_line(fd));
 // 	// while(1);
 // 	close(fd);
 // }
