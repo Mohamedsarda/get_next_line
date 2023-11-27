@@ -91,18 +91,3 @@ char	*get_next_line(int fd)
 	dst = ft_cutstr(line, '\n');
 	return (dst);
 }
-
-// int main()
-// {
-// 	int fd = open("1char.txt", O_RDWR | O_CREAT);
-// 	//
-// 	printf("\n[%s]\n", get_next_line(fd));
-// 	printf("\n[%s]\n", get_next_line(fd));
-// 	// printf("\n[%s]\n", get_next_line(fd));
-// 	// printf("\n[%s]\n", get_next_line(fd));
-// 	// printf("\n[%s]\n", get_next_line(fd));
-// 	// printf("\n[%s]\n", get_next_line(fd));
-// 	// printf("\n[%s]\n", get_next_line(fd));
-// 	// while(1);
-// 	close(fd);
-// }
