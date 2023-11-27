@@ -1,5 +1,17 @@
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: msarda <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/27 11:56:50 by msarda            #+#    #+#             */
+/*   Updated: 2023/11/27 11:56:51 by msarda           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
 # include <fcntl.h>
