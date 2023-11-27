@@ -94,23 +94,3 @@ int	ft_strchr(const char *s, int c)
 	}
 	return (1);
 }
-
-char	*ft_strcpy(char *str, int len)
-{
-	char	*dst;
-	int		i;
-
-	if (!str || !len)
-		return (NULL);
-	i = 0;
-	dst = (char *)malloc(len + 1);
-	if (!dst)
-		return (free(str), NULL);
-	while (i < len)
-	{
-		dst[i] = str[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
