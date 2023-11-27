@@ -17,12 +17,12 @@ static char	*ft_strcpy(char *str, int len)
 	char	*dst;
 	int		i;
 
-	if (!str || !len)
+	if (!str || len < 0)
 		return (NULL);
 	i = 0;
 	dst = (char *)malloc(len + 1);
 	if (!dst)
-		return (free(str), NULL);
+		return (NULL);
 	while (i < len)
 	{
 		dst[i] = str[i];
@@ -43,10 +43,8 @@ static char	*ft_get_buffer(int fd, char *dst)
 	if (!buffer)
 		return (free(dst), NULL);
 	bytes = 1;
-	while (bytes > 0)
+	while (bytes > 0 && ft_strchr(dst, '\n'))
 	{
-		if (!ft_strchr(dst, '\n'))
-			break ;
 		bytes = read(fd, buffer, BUFFER_SIZE);
 		if (bytes < 0 || (!dst[0] && bytes == 0))
 			return (free(buffer), free(dst), NULL);
@@ -94,7 +92,6 @@ static char	*ft_cutstr(char *str, char c)
 	if (str[len] == '\n')
 		len++;
 	dst = ft_strcpy(str, len);
-	free(str);
 	return (dst);
 }
 
@@ -108,7 +105,8 @@ char	*get_next_line(int fd)
 		&& (BUFFER_SIZE < 1 || BUFFER_SIZE > 10000000))
 		return (NULL);
 	line = ft_get_buffer(fd, str[fd]);
-	str[fd] = ft_get_rest(line);
 	dst = ft_cutstr(line, '\n');
+	str[fd] = ft_get_rest(line);
+	free(line);
 	return (dst);
 }
