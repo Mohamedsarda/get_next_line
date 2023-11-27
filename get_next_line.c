@@ -112,10 +112,3 @@ char	*get_next_line(int fd)
 	dst = ft_cutstr(line, '\n');
 	return (dst);
 }
-
-// int main()
-// {
-// 	int fd = open("test.txt", O_RDONLY);
-// 	get_next_line(fd);
-// 	get_next_line(fd);
-// }
