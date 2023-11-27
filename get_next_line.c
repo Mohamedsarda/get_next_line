@@ -17,14 +17,16 @@ static char	*ft_get_buffer(int fd, char *dst)
 	char	*buffer;
 	int		bytes;
 
-	bytes = 1;
 	if (!dst)
 		dst = ft_strdup("");
 	buffer = (char *)ft_calloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (free(dst), NULL);
-	while (bytes > 0 && ft_strchr(dst, '\n'))
+	bytes = 1;
+	while (bytes > 0)
 	{
+		if (!ft_strchr(dst, '\n'))
+			break ;
 		bytes = read(fd , buffer, BUFFER_SIZE);
 		if (bytes < 0 || (!dst[0] && bytes == 0))
 			return (free(buffer), free(dst), NULL);
@@ -63,7 +65,6 @@ static char	*ft_cutstr(char *str, char c)
 {
 	char	*dst;
 	int		len;
-	int		i;
 
 	if (!str)
 		return (NULL);
@@ -72,16 +73,7 @@ static char	*ft_cutstr(char *str, char c)
 		len++;
 	if (str[len] == '\n')
 		len++;
-	dst = (char *)ft_calloc(len + 1);
-	if (!dst)
-		return (free(str), NULL);
-	i = 0;
-	while (i < len)
-	{
-		dst[i] = str[i];
-		i++;
-	}
-	dst[i] = '\0';
+	dst = ft_strcpy(str, len);
 	free(str);
 	return (dst);
 }
@@ -92,7 +84,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*dst;
 
-	if ((fd < 1 || fd > 10240) && (BUFFER_SIZE < 1 || BUFFER_SIZE > 10000000))
+	if ((fd < 1 || fd > OPEN_MAX) && (BUFFER_SIZE < 1 || BUFFER_SIZE > 10000000))
 		return (NULL);
 	line = ft_get_buffer(fd, str);
 	str = ft_get_rest(line);
