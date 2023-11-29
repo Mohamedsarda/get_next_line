@@ -71,7 +71,7 @@ static char	*ft_get_rest(char *str)
 	i = ft_strlen(str) - len;
 	dst = (char *)ft_calloc(i + 1);
 	if (!dst)
-		return (free(str), NULL);
+		return (NULL);
 	j = 0;
 	while (j < i)
 		dst[j++] = str[++len];
@@ -101,8 +101,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*dst;
 
-	if ((fd < 1 || fd > OPEN_MAX)
-		&& (BUFFER_SIZE < 1 || BUFFER_SIZE > 10000000))
+	if ((fd < 0 || fd > OPEN_MAX) || BUFFER_SIZE < 1)
 		return (NULL);
 	line = ft_get_buffer(fd, str);
 	dst = ft_cutstr(line, '\n');
