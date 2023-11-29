@@ -17,7 +17,7 @@ static char	*ft_strcpy(char *str, size_t len)
 	char	*dst;
 	size_t	i;
 
-	if (!str || len < 0)
+	if (!str)
 		return (NULL);
 	i = 0;
 	dst = (char *)ft_calloc(len + 1);
