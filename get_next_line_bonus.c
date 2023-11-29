@@ -12,15 +12,15 @@
 
 #include "get_next_line_bonus.h"
 
-static char	*ft_strcpy(char *str, int len)
+static char	*ft_strcpy(char *str, size_t len)
 {
 	char	*dst;
-	int		i;
+	size_t	i;
 
 	if (!str || len < 0)
 		return (NULL);
 	i = 0;
-	dst = (char *)malloc(len + 1);
+	dst = (char *)ft_calloc(len + 1);
 	if (!dst)
 		return (NULL);
 	while (i < len)
@@ -58,9 +58,9 @@ static char	*ft_get_buffer(int fd, char *dst)
 static char	*ft_get_rest(char *str)
 {
 	char	*dst;
-	int		len;
-	int		i;
-	int		j;
+	size_t	len;
+	size_t	i;
+	size_t	j;
 
 	if (!str)
 		return (NULL);
@@ -79,10 +79,10 @@ static char	*ft_get_rest(char *str)
 	return (dst);
 }
 
-static char	*ft_cutstr(char *str, char c)
+static char	*ft_cutstr(char *str, int c)
 {
 	char	*dst;
-	int		len;
+	size_t	len;
 
 	if (!str)
 		return (NULL);
